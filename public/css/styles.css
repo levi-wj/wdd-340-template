@@ -1,6 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /******* Change Box Model ***************/
 *,
 *:before,
 *:after {
   box-sizing: border-box;
+}
+
+body {
+  background-image: url('../images/site/checkerboard.jpg');
+  background-size: 25em 25em;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-weight: bolder;
+}
+
+#wrapper {
+  width: 100%;
+}
+
+.main-nav > ul > li {
+  padding: .5em;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+.main-nav > ul > li:hover {
+  background-color: rgb(79, 79, 79);
+}
+
+
+/* Index */
+.index-upgrades-grid > div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 3px solid rgb(74, 122, 84);
+  border-radius: 5px;
+  padding: 1em;
+}
+
+.index-upgrades-reviews {
+  grid-template-columns: 1fr;
+}
+
+.index-reviews-list {
+  padding: .5em;
+  padding-left: 1em;
+}
+.index-reviews-list > li {
+  list-style: circle;
+  margin-bottom: .5em;
+  margin-left: 1.5em;
+}
+
+.index-main-card {
+  background-color: rgba(255, 255, 255, 0.87);
+  position: absolute;
+  border-radius: 5px;
+  padding: .2em;
+  top: 50%;
+  width: 66.6%;
+  transform: translateY(-50%);
+  border: 3px solid #008000;
+}
+
+@media screen and (min-width: 600px) {
+  #wrapper {
+    margin: auto;
+    margin-top: 2em;
+    width: 75%;
+    padding: 5;
+  }
+
+  .index-upgrades-reviews {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .index-main-card {
+    width: 35%;
+    margin-left: 1em;
+  }
 }
