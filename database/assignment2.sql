@@ -11,5 +11,4 @@ UPDATE public.inventory SET inv_description=REPLACE(inv_description, 'the small 
 
 SELECT i.inv_make,i.inv_model FROM public.inventory i INNER JOIN classification c USING(classification_id) WHERE c.classification_name='Sport';
 
-UPDATE public.inventory SET inv_image=REPLACE(inv_image, '/images/', '/images/vehicles/');
-
+UPDATE public.inventory SET inv_image=REPLACE(inv_image, '/images/', '/images/vehicles/'), inv_thumbnail=REPLACE(inv_thumbnail, '/images/', '/images/vehicles/');

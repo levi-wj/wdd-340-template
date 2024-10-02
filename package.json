@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js | pnpm tailwindcss -i ./public/css/styles.css -o ./public/css/tw.css --watch"
+    "dev": "nodemon server.js",
+    "css": "pnpm tailwindcss -i ./public/css/styles.css -o ./public/css/tw.css --watch"
   },
   "author": "",
   "license": "ISC",
