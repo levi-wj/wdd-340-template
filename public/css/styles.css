@@ -73,7 +73,7 @@ h1,h2,h3,h4,h5,h6 {
 #inv-display {
   padding: 2em;
   display: grid;
-  gap: 1em;
+  gap: 2em;
   grid-template-columns: 1fr;
   align-items: center;
   justify-content: center;
@@ -83,7 +83,7 @@ h1,h2,h3,h4,h5,h6 {
   border: 2px solid green;
   border-radius: 10px;
   padding: 1em;
-  height: 200px;
+  height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -99,7 +99,7 @@ h1,h2,h3,h4,h5,h6 {
     margin: auto;
     margin-top: 2em;
     width: 75%;
-    padding: 5;
+    padding: 1em;
   }
 
   .index-upgrades-reviews {
@@ -112,7 +112,10 @@ h1,h2,h3,h4,h5,h6 {
   }
 
   #inv-display {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  #details-container {
+    flex-direction: row;
   }
 }

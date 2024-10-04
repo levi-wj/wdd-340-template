@@ -29,7 +29,9 @@ app.use(static);
 
 app.get("/", utilities.handleErrors(baseController.buildHome));
 
-app.use('/inv', inventoryRoute);
+app.use('/inv', utilities.handleErrors(inventoryRoute));
+
+app.use('/error', utilities.handleErrors(utilities.intentionalError));
 
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Looks like that page doesn\'t exist yet!'});
@@ -45,7 +47,7 @@ app.use(async (err, req, res, next) => {
   if(err.status == 404) {
     message = err.message
   } else { 
-    message = 'Oh no! There was a crash. Maybe try a different route?'
+    message = 'Oh no! There was a crash. Maybe try a different page?'
   }
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
   res.render("errors/error", {

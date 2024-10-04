@@ -36,7 +36,7 @@ Util.buildClassificationGrid = async function(data){
         + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
         + ' details"><img src="' + vehicle.inv_thumbnail 
         +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
-        +' on CSE Motors" class="h-60" /></a>';
+        +' on CSE Motors" /></a>';
       grid += '<div class="namePrice">';
       grid += '<hr />';
       grid += '<h2>';
@@ -55,6 +55,10 @@ Util.buildClassificationGrid = async function(data){
   }
 
   return grid;
+}
+
+Util.intentionalError = function (req, res, next) {
+  throw new Error('This is an intentional error for testing purposes');
 }
 
 /* ****************************************

@@ -598,12 +598,29 @@ video {
   display: grid;
 }
 
+.h-fit {
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.w-2\/3 {
+  width: 66.666667%;
+}
+
 .w-full {
   width: 100%;
 }
 
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
 }
 
 .justify-between {
@@ -616,6 +633,10 @@ video {
 
 .rounded {
   border-radius: 0.25rem;
+}
+
+.rounded-3xl {
+  border-radius: 1.5rem;
 }
 
 .rounded-md {
@@ -654,6 +675,10 @@ video {
   padding: 0.5rem;
 }
 
+.p-3 {
+  padding: 0.75rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -661,6 +686,11 @@ video {
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 
 .text-lg {
@@ -685,6 +715,16 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.underline {
+  text-decoration-line: underline;
+}
+
+.shadow-lg {
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 /******* Change Box Model ***************/
@@ -762,7 +802,7 @@ h1,h2,h3,h4,h5,h6 {
 #inv-display {
   padding: 2em;
   display: grid;
-  gap: 1em;
+  gap: 2em;
   grid-template-columns: 1fr;
   align-items: center;
   justify-content: center;
@@ -772,7 +812,7 @@ h1,h2,h3,h4,h5,h6 {
   border: 2px solid green;
   border-radius: 10px;
   padding: 1em;
-  height: 200px;
+  height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -788,7 +828,7 @@ h1,h2,h3,h4,h5,h6 {
     margin: auto;
     margin-top: 2em;
     width: 75%;
-    padding: 5;
+    padding: 1em;
   }
 
   .index-upgrades-reviews {
@@ -801,13 +841,20 @@ h1,h2,h3,h4,h5,h6 {
   }
 
   #inv-display {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows:
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  #details-container {
+    flex-direction: row;
   }
 }
 
 @media (min-width: 768px) {
   .md\:ml-4 {
     margin-left: 1rem;
+  }
+
+  .md\:w-1\/3 {
+    width: 33.333333%;
   }
 }
