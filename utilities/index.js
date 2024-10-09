@@ -8,11 +8,11 @@ Util.getNav = async function (req, res, next) {
   let data = await invModel.getClassifications();
   let list = '<ul class="flex justify-around">';
 
-  list += '<li><a href="/" title="Home page">Home</a></li>';
+  list += '<li><a href="/" title="Home page" class="no-underline">Home</a></li>';
   data.rows.forEach((row) => {
     list += `
     <li>
-      <a href="/inv/type/${row.classification_id}" title="See our inventory of ${row.classification_name} vehicles">
+      <a href="/inv/type/${row.classification_id}" class="no-underline"	" title="See our inventory of ${row.classification_name} vehicles">
         ${row.classification_name}
       </a>
     </li>`;

@@ -17,6 +17,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
     title: className + " vehicles",
     nav,
     grid,
+    errors: null,
   });
 }
 
@@ -31,9 +32,19 @@ invCont.buildInvDetail = async function (req, res, next) {
   if (item) {
     const title = `${item.inv_make} ${item.inv_model}`;
 
-    res.render("./inventory/detail", { title, nav, item, });
+    res.render("./inventory/detail", { 
+      title, 
+      nav, 
+      item,
+      errors: null,
+     });
   } else {
-    res.render('./errors/error', { message: 'Vehicle not found', title: 'Not Found', nav });
+    res.render('./errors/error', {
+      message: 'Vehicle not found', 
+      title: 'Not Found', 
+      nav,
+      errors: null,
+    });
   }
 }
 

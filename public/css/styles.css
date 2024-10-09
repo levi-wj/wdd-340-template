@@ -9,6 +9,19 @@
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: underline;
+}
+
+input:required:invalid, input:focus:invalid {
+  border-color: red !important;
+  outline-color: red !important;
+}
+
+.no-underline {
+  text-decoration: none;
+}
+
 body {
   background-image: url('../images/site/checkerboard.jpg');
   background-size: 25em 25em;
@@ -16,6 +29,24 @@ body {
 
 h1,h2,h3,h4,h5,h6 {
   font-weight: bolder;
+}
+
+/* Flash messages */
+#messages li {
+  padding: .2em;
+  margin-bottom: .4em;
+  border-radius: 5px;
+}
+#messages > .error > li, .page-errors {
+  color: rgb(89, 0, 0);
+  border: 1px solid rgb(166, 0, 0);
+  background-color: rgba(255, 0, 0, 0.257);
+  padding-left: .2em;
+}
+#messages > .notice > li {
+  color: rgb(89, 79, 0);
+  border: 1px solid rgb(166, 133, 0);
+  background-color: rgba(255, 247, 0, 0.257);
 }
 
 #wrapper {
@@ -30,6 +61,18 @@ h1,h2,h3,h4,h5,h6 {
 }
 .main-nav > ul > li:hover {
   background-color: rgb(79, 79, 79);
+}
+
+
+/* Login */
+#login-form label {
+  display: flex;
+  flex-direction: column;
+}
+#login-form label > input {
+  border: 2px solid black;
+  border-radius: 3px;
+  padding: .4em;
 }
 
 

@@ -1,0 +1,27 @@
+<% if (title) { %>
+  <h1 class="text-2xl mb-2"><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<form id="login-form" class="bg-green-200 p-8 text-center">
+  <div class="grid mb-2 text-left grid-cols-1 gap-2 md:grid-cols-2 md:gap-8">
+    <label>
+      Email:
+      <input type="email" name="account_email" required placeholder="Email address">
+    </label>
+    <label>
+      Password:
+      <input type="password" name="account_password" required placeholder="Password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+    </label>
+  </div>
+  <div class="text-sm mb-8">
+    Password must be: minimum 12 characters, 1 capital letter, 1 number, 1 special character
+  </div>
+
+  <button type="submit" class="bg-green-800 text-white py-2 px-4 rounded">Login</button>
+
+  <p class="mt-4">No account? <a href="/account/register/">Sign-up</a></p>
+</form>
