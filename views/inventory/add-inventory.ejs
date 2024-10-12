@@ -1,0 +1,69 @@
+<% if (title) { %>
+  <h1 class="text-2xl mb-2"><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+  <ul class="page-errors mb-2">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<% }); %>
+ </ul>
+<% } %>
+
+<form action="/inv/add-inventory" id="login-form" method="post" class="bg-green-200 bg-green-200 p-8 text-center">
+  <div class="grid mb-8 text-left grid-cols-1 gap-2 md:grid-cols-2 md:gap-4">
+    <label>
+      Classification:
+      <select name="classification_id" required>
+        <option value="-1" hidden>Select a classification</option>
+        <% classifications.forEach(classification => { %>
+          <option value="<%= classification.classification_id %>" <%= locals.classification_id == classification.classification_id ? 'selected' : '' %>>
+            <%= classification.classification_name %>
+          </option>
+        <% }); %>
+      </select>
+    </label>
+    <label>
+      Make:
+      <input type="text" name="inv_make" value="<%= locals.inv_make %>" required>
+    </label>
+    <label>
+      Model:
+      <input type="text" name="inv_model" value="<%= locals.inv_model %>" required>
+    </label>
+    <label>
+      Year:
+      <input type="text" name="inv_year" value="<%= locals.inv_year %>" required>
+    </label>
+    <label>
+      Description:
+      <textarea name="inv_description" required><%= locals.inv_description %></textarea>
+    </label>
+    <label>
+      Image:
+      <input type="text" name="inv_image" value="<%= locals.inv_image ?? '/images/vehicles/no-image.png' %>" required>
+    </label>
+    <label>
+      Thumbnail:
+      <input type="text" name="inv_thumbnail" value="<%= locals.inv_thumbnail ?? '/images/vehicles/no-image-tn.png' %>" required>
+    </label>
+    <label>
+      Price:
+      <input type="number" name="inv_price" value="<%= locals.inv_price %>" required>
+    </label>
+    <label>
+      Miles:
+      <input type="number" name="inv_miles" value="<%= locals.inv_miles %>" required>
+    </label>
+    <label>
+      Color:
+      <input type="text" name="inv_color" value="<%= locals.inv_color %>" required>
+    </label>
+
+  </div>
+  <button type="submit" class="bg-green-800 text-white py-2 px-4 rounded">Add Classification</button>
+</form>

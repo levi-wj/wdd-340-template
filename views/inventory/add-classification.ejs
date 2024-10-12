@@ -1,0 +1,22 @@
+<% if (title) { %>
+  <h1 class="text-2xl mb-2"><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+  <ul class="page-errors mb-2">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<% }); %>
+ </ul>
+<% } %>
+
+<form action="/inv/add-classification" method="post" class="bg-green-200 flex flex-col items-center mb-4 py-8">
+  <label for="classification_name" class="block">Name</label>
+  <input type="text" name="classification_name" class="mb-1 p-1" required pattern="^[a-zA-Z]*$" value="<%= locals.classification_name %>">
+  <span class="text-sm mb-4">Name must be only alphabetical characters</span>
+  <button type="submit" class="bg-green-800 text-white py-2 px-4 rounded">Add Classification</button>
+</form>
