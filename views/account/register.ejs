@@ -18,15 +18,15 @@
   <div class="grid mb-2 text-left grid-cols-1 gap-2 md:grid-cols-2 md:gap-8">
     <label>
       First Name:
-      <input type="text" name="account_firstname" required>
+      <input type="text" name="account_firstname" required value="<%= locals.account_firstname %>">
     </label>
     <label>
       Last Name:
-      <input type="text" name="account_lastname" required>
+      <input type="text" name="account_lastname" required value="<%= locals.account_lastname %>">
     </label>
     <label>
       Email:
-      <input type="email" name="account_email" required>
+      <input type="email" name="account_email" required value="<%= locals.account_email %>">
     </label>
     <label>
       Password:

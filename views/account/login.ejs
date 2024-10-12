@@ -6,11 +6,19 @@
 
 <%- messages() %>
 
-<form id="login-form" class="bg-green-200 p-8 text-center">
+<% if (errors) { %>
+  <ul class="page-errors mb-2">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<% }); %>
+ </ul>
+<% } %>
+
+<form id="login-form" action="/account/login" method="post" class="bg-green-200 p-8 text-center">
   <div class="grid mb-2 text-left grid-cols-1 gap-2 md:grid-cols-2 md:gap-8">
     <label>
       Email:
-      <input type="email" name="account_email" required placeholder="Email address">
+      <input type="email" name="account_email" required placeholder="Email address" value="<%= locals.account_email %>">
     </label>
     <label>
       Password:
