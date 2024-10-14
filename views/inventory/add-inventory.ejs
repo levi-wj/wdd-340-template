@@ -14,18 +14,11 @@
  </ul>
 <% } %>
 
-<form action="/inv/add-inventory" id="login-form" method="post" class="bg-green-200 bg-green-200 p-8 text-center">
+<form action="/inv/add-inventory" id="login-form" method="post" class="bg-green-200 p-8 text-center">
   <div class="grid mb-8 text-left grid-cols-1 gap-2 md:grid-cols-2 md:gap-4">
     <label>
       Classification:
-      <select name="classification_id" required>
-        <option value="-1" hidden>Select a classification</option>
-        <% classifications.forEach(classification => { %>
-          <option value="<%= classification.classification_id %>" <%= locals.classification_id == classification.classification_id ? 'selected' : '' %>>
-            <%= classification.classification_name %>
-          </option>
-        <% }); %>
-      </select>
+      <%- include('../partials/classification-select', { classifications: classifications, classification_id: locals.classification_id }) %>
     </label>
     <label>
       Make:

@@ -8,7 +8,7 @@ router.get('/login', utilities.handleErrors(accController.buildLogin));
 router.post("/login",
   accValidate.loginRules(),
   accValidate.checkLoginData,
-  (req, res) => res.status(200).send('login process')
+  utilities.handleErrors(accController.accountLogin),
 );
 
 router.get('/register', utilities.handleErrors(accController.buildRegistration));
@@ -16,6 +16,12 @@ router.post('/register',
   accValidate.registrationRules(),
   accValidate.checkRegData,
   utilities.handleErrors(accController.registerAccount),
+);
+
+// Serve the account-management page
+router.get('/',
+  utilities.checkLogin,
+  utilities.handleErrors(accController.buildAccount),
 );
 
 

@@ -7,15 +7,16 @@
  *************************/
 const express = require("express");
 const env = require("dotenv").config();
-const session = require("express-session")
-const bodyParser = require("body-parser")
-const pool = require('./database/')
+const session = require("express-session");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const pool = require('./database/');
 const app = express();
 const static = require("./routes/static");
-const utilities = require("./utilities/index");
+const utilities = require("./utilities/");
 const expressLayouts = require("express-ejs-layouts");
-const baseController = require("./controllers/baseController")
-const inventoryRoute = require("./routes/inventoryRoute")
+const baseController = require("./controllers/baseController");
+const inventoryRoute = require("./routes/inventoryRoute");
 const accountRoute = require('./routes/accountRoute');
 
 
@@ -41,6 +42,10 @@ app.use(function(req, res, next){
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
+app.use(cookieParser());
+
+app.use(utilities.checkJWTToken);
 
 
 /* ***********************
