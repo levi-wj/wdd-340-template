@@ -1,7 +1,7 @@
-<select name="classification_id" required>
+<select name="classification_id" id="classificationSelect" required>
   <option value="-1" hidden>Select a classification</option>
   <% classifications.forEach(classification => { %>
-    <option value="<%= classification.classification_id %>" <%= classification_id == classification.classification_id ? 'selected' : '' %>>
+    <option value="<%= classification.classification_id %>" <%= locals.classification_id == classification.classification_id ? 'selected' : '' %>>
       <%= classification.classification_name %>
     </option>
   <% }); %>

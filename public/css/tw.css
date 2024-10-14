@@ -610,6 +610,10 @@ video {
   display: flex;
 }
 
+.table {
+  display: table;
+}
+
 .grid {
   display: grid;
 }
@@ -865,15 +869,20 @@ h1,h2,h3,h4,h5,h6 {
 
 /* Login */
 
-#login-form label {
+.form-layout label {
   display: flex;
   flex-direction: column;
 }
 
-#login-form label > input,select,textarea {
+.form-layout label > input,select,textarea {
   border: 2px solid black;
   border-radius: 3px;
   padding: .4em;
+}
+
+.form-layout button:disabled {
+  filter: grayscale(1) brightness(1.5);
+  cursor: not-allowed;
 }
 
 /* Index */

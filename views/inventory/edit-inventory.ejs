@@ -1,7 +1,9 @@
+<script src="/js/inv-update.js" defer></script>
+
 <% if (title) { %>
   <h1 class="text-2xl mb-2"><%= title %></h1>
 <% } else {
-  res.redirect('/');
+  res.redirect('/')
 } %>
 
 <%- messages() %>
@@ -14,7 +16,7 @@
  </ul>
 <% } %>
 
-<form action="/inv/add-inventory" id="login-form" method="post" class="bg-green-200 p-8 text-center form-layout">
+<form action="/inv/update" id="update-form" method="post" class="bg-green-200 p-8 text-center form-layout">
   <div class="grid mb-8 text-left grid-cols-1 gap-2 md:grid-cols-2 md:gap-4">
     <label>
       Classification:
@@ -57,6 +59,11 @@
       <input type="text" name="inv_color" value="<%= locals.inv_color %>" required>
     </label>
 
+    <input type="hidden" name="inv_id"
+      <% if(locals.inv_id) { %> 
+        value="<%= locals.inv_id %>"
+      <% } %>>
+
   </div>
-  <button type="submit" class="bg-green-800 text-white py-2 px-4 rounded">Add Vehicle</button>
+  <button type="submit" disabled class="bg-green-800 text-white py-2 px-4 rounded">Save Changes</button>
 </form>

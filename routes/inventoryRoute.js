@@ -10,6 +10,16 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 
 router.get("/detail/:invId", utilities.handleErrors(invController.buildInvDetail));
 
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.JSONGetInventoryByClass));
+
+// When the edit link is clicked from the managemnet page
+router.get("/edit/:inv_id", utilities.handleErrors(invController.buildInvEdit));
+router.post("/update/",
+  invValidate.inventoryRules(),
+  invValidate.checkInventoryUpdateData,
+  utilities.handleErrors(invController.updateInventory),
+);
+
 router.get("/add-classification/", utilities.handleErrors(invController.buildClassificationForm));
 router.post("/add-classification/", 
   invValidate.classificationRules(),

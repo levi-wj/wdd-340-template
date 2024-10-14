@@ -1,3 +1,5 @@
+<script src="/js/inventory.js" defer></script>
+
 <% if (title) { %>
   <h1 class="text-2xl mb-2"><%= title %></h1>
 <% } else {
@@ -14,6 +16,15 @@
  </ul>
 <% } %>
 
-<a href="/inv/add-classification" class="block">Add new classification</a>
+<div class="mb-4">
+  <a href="/inv/add-classification" class="block">Add new classification</a>
+  <a href="/inv/add-inventory" class="block">Add new inventory</a>
+</div>
 
-<a href="/inv/add-inventory" class="block">Add new inventory</a>
+<div class="mb-2">
+  <h2 class="text-xl">Current Inventory</h2>
+  <%- include('../partials/classification-select', { classifications }) %>
+</div>
+
+<table id="inventoryDisplay" class="bg-green-200 p-8 rounded-md mb-4"></table>
+<noscript>JavaScript must be enabled to view current inventory.</noscript>
