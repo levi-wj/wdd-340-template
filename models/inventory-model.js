@@ -14,6 +14,19 @@ async function getClassifications() {
   }
 }
 
+async function getClassificationByName(classification_name) {
+  try {
+    // This will get a classification from the database, case insensitive
+    const data = await pool.query(
+      "SELECT * FROM public.classification WHERE classification_name ~~* $1",
+      [classification_name]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.error('getClassificationByName error ' + error);
+  }
+}
+
 /* ***************************
  *  Get all inventory items and classification_name by classification_id
  * ************************** */
@@ -110,4 +123,5 @@ module.exports = {
   createInventory,
   updateInventory,
   deleteInventory,
+  getClassificationByName,
 };

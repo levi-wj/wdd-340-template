@@ -13,7 +13,7 @@ Util.getNav = async function (req, res, next) {
   data.forEach((row) => {
     list += `
     <li>
-      <a href="/inv/type/${row.classification_id}" class="no-underline"	" title="See our inventory of ${row.classification_name} vehicles">
+      <a href="/inv/type/${row.classification_id}" class="no-underline"	title="See our inventory of ${row.classification_name} vehicles">
         ${row.classification_name}
       </a>
     </li>`;
@@ -26,7 +26,7 @@ Util.getNav = async function (req, res, next) {
 /* **************************************
 * Build the classification view HTML
 * ************************************ */
-Util.buildClassificationGrid = async function(data){
+Util.buildClassificationGrid = async function(data) {
   let grid = '';
 
   if (data.length > 0) {

@@ -77,19 +77,34 @@ invCont.buildClassificationForm = async function (req, res, next) {
 
 invCont.createClassification = async function (req, res, next) {
   const { classification_name } = req.body;
+  const existingClass = await invModel.getClassificationByName(classification_name);
 
-  const classification = await invModel.createClassification(classification_name);
-  const nav = await utilities.getNav();
+  console.log(existingClass)
 
-  if (classification) {
-    req.flash("notice", `You successfully created the '${classification_name}' classification.`);
-    res.status(201).render("./inventory/add-classification", {
-      title: "Add Classification",
-      nav,
-      errors: null,
-    });
+  // Only create if the classification doesn't already exist
+  if (!existingClass) {
+    const classification = await invModel.createClassification(classification_name);
+    const nav = await utilities.getNav();
+
+    if (classification) {
+      req.flash("notice", `You successfully created the '${classification_name}' classification.`);
+      res.status(201).render("./inventory/add-classification", {
+        title: "Add Classification",
+        nav,
+        errors: null,
+      });
+    } else {
+      req.flash("notice", "Error creating classification.");
+      res.status(501).render("./inventory/add-classification", {
+        title: "Add Classification",
+        nav,
+        errors: null,
+      });
+    }
   } else {
-    req.flash("notice", "Error creating classification.");
+    const nav = await utilities.getNav();
+
+    req.flash("notice", "That classification already exists");
     res.status(501).render("./inventory/add-classification", {
       title: "Add Classification",
       nav,
