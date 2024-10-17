@@ -1,0 +1,45 @@
+<% if (title) { %>
+  <h1 class="text-2xl mb-2"><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+  <ul class="page-errors mb-2">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<% }); %>
+ </ul>
+<% } %>
+
+<p>This cannot be undone!</p>
+
+<form action="/inv/delete" id="update-form" method="post" class="bg-green-200 p-8 text-center form-layout">
+  <div class="grid mb-8 text-left grid-cols-1 gap-2 md:grid-cols-2 md:gap-4">
+    <label>
+      Make:
+      <input type="text" name="inv_make" value="<%= locals.inv_make %>" required readonly>
+    </label>
+    <label>
+      Model:
+      <input type="text" name="inv_model" value="<%= locals.inv_model %>" required readonly>
+    </label>
+    <label>
+      Year:
+      <input type="text" name="inv_year" value="<%= locals.inv_year %>" required readonly>
+    </label>
+    <label>
+      Price:
+      <input type="number" name="inv_price" value="<%= locals.inv_price %>" required readonly>
+    </label>
+
+    <input type="hidden" name="inv_id"
+      <% if(locals.inv_id) { %> 
+        value="<%= locals.inv_id %>"
+      <% } %>>
+
+  </div>
+  <button type="submit" class="bg-green-800 text-white py-2 px-4 rounded">Confirm Deletion</button>
+</form>

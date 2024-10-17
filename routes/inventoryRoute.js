@@ -20,6 +20,9 @@ router.post("/update/",
   utilities.handleErrors(invController.updateInventory),
 );
 
+router.get('/delete/:inv_id', utilities.handleErrors(invController.deleteConfirmation));
+router.post('/delete/', utilities.handleErrors(invController.deleteInventory));
+
 router.get("/add-classification/", utilities.handleErrors(invController.buildClassificationForm));
 router.post("/add-classification/", 
   invValidate.classificationRules(),

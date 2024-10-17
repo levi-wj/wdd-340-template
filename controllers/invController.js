@@ -230,4 +230,54 @@ invCont.updateInventory = async function (req, res, next) {
   }
 }
 
+/* ***************************
+ *  Delete confirmation view
+ * ************************** */
+invCont.deleteConfirmation = async (req, res, next) => {
+  const inv_id = parseInt(req.params.inv_id);
+  const nav = await utilities.getNav();
+  const itemData = await invModel.getInventoryById(inv_id);
+  const itemName = `${itemData.inv_make} ${itemData.inv_model}`;
+
+  res.render("./inventory/delete-confirm", {
+    title: "Confirm delete for " + itemName,
+    nav,
+    inv_id: itemData.inv_id,
+    inv_make: itemData.inv_make,
+    inv_model: itemData.inv_model,
+    inv_year: itemData.inv_year,
+    inv_price: itemData.inv_price,
+    errors: null,
+  });
+}
+
+/* ***************************
+ *  Delete Inventory Item
+ * ************************** */
+invCont.deleteInventory = async function (req, res, next) {
+  const nav = await utilities.getNav();
+  const { inv_id,inv_make,inv_model,inv_year,inv_price } = req.body;
+  const itemName = `${inv_make} ${inv_model}`;
+
+  const deleteResult = await invModel.deleteInventory(inv_id);
+
+  if (deleteResult) {
+    req.flash("notice", `The ${itemName} was successfully deleted.`);
+    res.redirect("/inv/");
+  } else {
+    req.flash("notice", "Something went wrong while trying to delete.")
+    res.render("./inventory/delete-confirm", {
+      title: "Confirm delete for " + itemName,
+      nav,
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_price,
+      errors: null,
+    });
+  }
+}
+
+
 module.exports = invCont;
