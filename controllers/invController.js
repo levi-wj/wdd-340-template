@@ -71,15 +71,13 @@ invCont.buildClassificationForm = async function (req, res, next) {
   res.render("./inventory/add-classification", {
     title: "Add Classification",
     nav,
-    errors: null
+    errors: null,
   });
 }
 
 invCont.createClassification = async function (req, res, next) {
   const { classification_name } = req.body;
   const existingClass = await invModel.getClassificationByName(classification_name);
-
-  console.log(existingClass)
 
   // Only create if the classification doesn't already exist
   if (!existingClass) {

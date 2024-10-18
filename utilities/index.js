@@ -71,6 +71,16 @@ Util.handleErrors = function(cb) {
   return (req, res, next) => Promise.resolve(cb(req, res, next)).catch(next);
 }
 
+Util.checkAccountAdmin = (req, res, next) => {
+  const accountType = res.locals.accountData?.account_type;
+  if (accountType === 'Employee' || accountType === 'Admin') {
+    next();
+  } else {
+    req.flash('notice', 'You do not have permission to access that page.');
+    res.redirect("/account/login/");
+  }
+}
+
 /* ****************************************
 * Middleware to check token validity
 **************************************** */
