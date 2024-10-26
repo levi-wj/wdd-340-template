@@ -1,0 +1,37 @@
+<% if (title) { %>
+  <h1 class="text-3xl mb-2"><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+  <ul class="page-errors mb-2">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<% }); %>
+ </ul>
+<% } %>
+
+<form action="/inv/reviews/edit/" method="post" class="flex flex-col bg-gray-200 rounded-lg p-2 gap-2 mb-8 items-center">
+  <input type="hidden" name="review_id" value="<%= locals.review.review_id %>">
+  <input type="hidden" name="inv_id" value="<%= locals.review.inv_id %>">
+
+  <span class="font-bold w-full">For: <%- review.inv_make %> <%- review.inv_model %></span>
+  <label class="w-full">
+    Stars:
+    <select name="review_stars">
+      <option value="1" <%= locals.review.review_stars == 1 ? 'selected' : '' %>>1</option>
+      <option value="2" <%= locals.review.review_stars == 2 ? 'selected' : '' %>>2</option>
+      <option value="3" <%= locals.review.review_stars == 3 ? 'selected' : '' %>>3</option>
+      <option value="4" <%= locals.review.review_stars == 4 ? 'selected' : '' %>>4</option>
+      <option value="5" <%= locals.review.review_stars == 5 ? 'selected' : '' %>>5</option>
+    </select>
+  </label>
+  <label class="mb-2 w-full">
+    Review:
+    <textarea name="review_text" class="w-full" required placeholder="Write your review here..."><%- locals.review.review_text %></textarea>
+  </label>
+  <button type="submit" class="bg-green-800 text-white py-2 px-4 rounded max-w-56">Save changes</button>
+</form>

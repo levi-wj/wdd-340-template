@@ -1,0 +1,35 @@
+<% if (title) { %>
+  <h1 class="text-3xl mb-2"><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+  <ul class="page-errors mb-2">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<% }); %>
+ </ul>
+<% } %>
+
+<h3 class="text-xl">Are you sure you want to delete this review?</h3>
+
+<form action="/inv/reviews/del/" method="post" class="flex flex-col bg-gray-200 rounded-lg p-2 gap-2 mb-8 items-center">
+  <input type="hidden" name="review_id" value="<%= locals.review.review_id %>">
+
+  <div class="bg-gray-300 rounded-lg p-2 mb-4 w-2/3 md:w-full">
+    <p class="flex justify-between">
+      <span class="bg-green-700 text-white px-1 rounded">
+        <%- locals.review.review_stars %>★
+      </span>
+      <span>
+        <span class="text-gray-600"><%- locals.review.review_date %></span>
+      </span>
+    </p>
+    <p><%- locals.review.review_text %></p>
+  </div>
+
+  <button type="submit" class="bg-green-800 text-white py-2 px-4 rounded max-w-56">Delete review</button>
+</form>

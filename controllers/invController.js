@@ -32,7 +32,10 @@ invCont.buildByClassificationId = async function (req, res, next) {
 invCont.buildInvDetail = async function (req, res, next) {
   const invId = req.params.invId;
   const item = await invModel.getInventoryById(invId);
-  let nav = await utilities.getNav();
+  const nav = await utilities.getNav();
+  const reviews = await invModel.getReviewsWithNamesByInvId(invId);
+
+  const errors = res.locals.error || null;
 
   if (item) {
     const title = `${item.inv_make} ${item.inv_model}`;
@@ -41,14 +44,16 @@ invCont.buildInvDetail = async function (req, res, next) {
       title, 
       nav, 
       item,
-      errors: null,
+      reviews,
+      errors,
      });
   } else {
     res.render('./errors/error', {
       message: 'Vehicle not found', 
       title: 'Not Found', 
       nav,
-      errors: null,
+      reviews,
+      errors,
     });
   }
 }
@@ -292,5 +297,106 @@ invCont.deleteInventory = async function (req, res, next) {
   }
 }
 
+/* ***************************
+ *  Add a review to the db and return to the detail page 
+ * ************************** */
+invCont.addReview = async (req, res, next) => {
+  const { inv_id,review_stars,review_text, } = req.body;
+  const account_id = res.locals.accountData.account_id;
+
+  const review = await invModel.addReview(inv_id, account_id, review_text, review_stars);
+
+  if (review) {
+    req.flash("notice", "Successfully saved your review");
+  } else {
+    req.flash("error", "Error saving your review");
+  }
+
+  req.params.invId = inv_id;
+  invCont.buildInvDetail(req, res, next);
+}
+
+invCont.buildReviewEdit = async (req, res, next) => {
+  const review_id = parseInt(req.params.review_id);
+  const review = await invModel.getReviewById(review_id);
+  const nav = await utilities.getNav();
+
+  if (review) {
+    res.render("./inventory/review-edit", {
+      title: "Edit Review",
+      nav,
+      review,
+      errors: null,
+    });
+  } else {
+    res.render("./errors/error", {
+      title: "Not Found",
+      message: "Review not found",
+      nav,
+      errors: null,
+    });
+  }
+}
+
+invCont.updateReview = async (req, res, next) => {
+  const { review_id,review_text,review_stars } = req.body;
+  const review = await invModel.updateReview(review_id, review_text, review_stars);
+  const nav = await utilities.getNav();
+
+  if (review) {
+    req.flash("notice", "Successfully updated your review");
+    res.redirect("/inv/reviews/edit/" + review_id);
+  } else {
+    req.flash("error", "Error updating your review");
+    res.render("./inventory/review-edit", {
+      title: "Edit Review",
+      nav,
+      review,
+      errors: null,
+    });
+  }
+}
+
+invCont.buildReviewDelete = async (req, res, next) => {
+  const review_id = parseInt(req.params.review_id);
+  const review = await invModel.getReviewById(review_id);
+  const nav = await utilities.getNav();
+
+  if (review) {
+    res.render("./inventory/review-delete", {
+      title: "Delete Review",
+      nav,
+      review,
+      errors: null,
+    });
+  } else {
+    res.render("./errors/error", {
+      title: "Not Found",
+      message: "Review not found",
+      nav,
+      errors: null,
+    });
+  }
+}
+
+invCont.deleteReview = async (req, res, next) => {
+  const review_id = parseInt(req.body.review_id);
+  const nav = await utilities.getNav();
+
+  const review = await invModel.deleteReview(review_id);
+
+  if (review) {
+    req.flash("notice", "Successfully deleted your review");
+    res.redirect("/");
+  } else {
+    req.flash("error", "Error deleting your review");
+    res.render("./inventory/review-delete", {
+      title: "Delete Review",
+      nav,
+      review,
+      errors: null,
+    });
+  }
+}
 
 module.exports = invCont;

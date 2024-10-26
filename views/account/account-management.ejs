@@ -24,3 +24,29 @@
   <h3>Inventory Management</h3>
   <a href="/inv/" class="block" title="Inventory Management">Manage Inventory</a>
 <% } %>
+
+<h3 class="text-xl mt-4">Your reviews</h3>
+<% if (locals.reviews?.length) { %>
+  <% locals.reviews.forEach(review => { %>
+    <div class="bg-gray-200 rounded-lg p-2 mb-4">
+      <p class="flex justify-between">
+        <span>
+          <span class="font-bold mr-1">
+            For: <%- review.inv_make %> <%- review.inv_model %>
+          </span>
+          <span class="bg-green-700 text-white px-1 rounded">
+            <%- review.review_stars %>★
+          </span>
+        </span>
+        <span>
+          <span class="text-gray-600"><%- review.review_date %></span>
+          <a href="/inv/reviews/edit/<%= review.review_id %>" class="bg-green-700 text-white px-2 py-1 rounded no-underline cursor-pointer">Edit</a>
+          <a href="/inv/reviews/del/<%= review.review_id %>" class="bg-red-700 text-white px-2 py-1 rounded no-underline cursor-pointer">Delete</a>
+        </span>
+      </p>
+      <p><%- review.review_text %></p>
+    </div>
+  <% }); %>
+<% } else { %>
+  <p>No reviews yet.</p>
+<% } %>

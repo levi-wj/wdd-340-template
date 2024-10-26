@@ -1,5 +1,6 @@
 const utilities = require(".");
 const invModel = require("../models/inventory-model");
+const invCont = require("../controllers/invController");
 const { body, validationResult } = require("express-validator");
 const validate = {};
 
@@ -69,6 +70,26 @@ validate.inventoryRules = () => {
   ];
 }
 
+validate.reviewRules = () => [
+  body('review_text')
+    .trim()
+    .notEmpty()
+    .withMessage('Review text is required'),
+
+  body('review_stars')
+    .notEmpty()
+    .withMessage('Review stars are required')
+    .isInt({ min: 1, max: 5 })
+    .withMessage('Please provide a valid star rating between 1 and 5'),
+
+  body('inv_id')
+    .notEmpty()
+    .withMessage('Inventory ID is required')
+    .isInt()
+    .withMessage('Please provide a valid inventory ID'),
+];
+
+
 
 /* ******************************
  * Check data and return errors for adding classification
@@ -107,6 +128,18 @@ validate.checkInventoryData = async (req, res, next) => {
     return;
   }
   next();
+}
+
+validate.checkReviewData = async (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    req.flash('error', 'Invalid data for review');
+    req.params.review_id = req.body.review_id;
+    invCont.buildReviewEdit(req, res, next);
+  } else {
+    next();
+  }
 }
 
 /* ******************************

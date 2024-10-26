@@ -59,10 +59,31 @@ async function updateAccountPassword(account_id, account_password) {
   }
 }
 
+async function getReviewsByAccount(account_id) {
+  try {
+    const sql = `SELECT
+        r.review_id,
+        to_char(r.review_date, 'DD MON YYYY') AS review_date,
+        r.review_text,
+        r.review_stars,
+        i.inv_make,
+        i.inv_model
+      FROM public.review r
+      INNER JOIN public.inventory i
+          ON i.inv_id=r.inv_id
+      WHERE r.account_id = $1`;
+     const data = await pool.query(sql, [account_id]);
+     return data.rows;
+  } catch (error) {
+    console.error('getReviewsByAccount error ' + error);
+  }
+}
+
 module.exports = {
   registerAccount,
   checkExistingEmail,
   getAccountByEmail,
   updateAccountInfo,
   updateAccountPassword,
+  getReviewsByAccount,
 };

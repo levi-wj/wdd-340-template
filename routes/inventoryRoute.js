@@ -59,6 +59,28 @@ router.post("/add-inventory/",
   utilities.handleErrors(invController.createInventory),
 );
 
+router.post("/reviews/add/",
+  invValidate.reviewRules(),
+  invValidate.checkReviewData,
+  utilities.handleErrors(invController.addReview),
+);
+
+router.get("/reviews/edit/:review_id",
+  utilities.handleErrors(invController.buildReviewEdit),
+);
+router.post("/reviews/edit/",
+  invValidate.reviewRules(),
+  invValidate.checkReviewData,
+  utilities.handleErrors(invController.updateReview),
+);
+
+router.get("/reviews/del/:review_id",
+  utilities.handleErrors(invController.buildReviewDelete),
+);
+router.post("/reviews/del/",
+  utilities.handleErrors(invController.deleteReview),
+);
+
 router.get("/",
   utilities.checkAccountAdmin,
   utilities.handleErrors(invController.buildManagement)

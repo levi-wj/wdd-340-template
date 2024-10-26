@@ -127,10 +127,14 @@ async function accountLogin(req, res) {
 }
 
 async function buildAccount(req, res, next) {
-  let nav = await utilities.getNav();
+  const nav = await utilities.getNav();
+  const reviews = await accountModel.getReviewsByAccount(res.locals.accountData.account_id);
+
+  console.log(reviews)
   res.render("account/account-management", {
     title: "Account",
     nav,
+    reviews,
     errors: null,
   });
 }
